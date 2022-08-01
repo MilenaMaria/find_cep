@@ -10,10 +10,17 @@ Clone o projeto
 git clone https://github.com/MilenaMaria/find_cep.git
 ```
 
-## Configs
-Para utilizar esse projeto será necessário a instalação
-- postgres
-- elixir versão 12
+subir o ambiente docker
+
+```bash
+docker-compose up
+```
+
+para entrar no container do elixir
+
+```bash
+docker-compose run elixir bash
+```
 
 instalar as dependencias
 
