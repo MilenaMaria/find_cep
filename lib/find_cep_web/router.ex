@@ -2,7 +2,7 @@ defmodule FindCepWeb.Router do
   use FindCepWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["json", "json-api"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {FindCepWeb.LayoutView, :root}
@@ -18,6 +18,9 @@ defmodule FindCepWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/search/:cep", SearchController, :search
+    get "/report_csv", SearchController, :report_csv
   end
 
   # Other scopes may use custom stacks.
