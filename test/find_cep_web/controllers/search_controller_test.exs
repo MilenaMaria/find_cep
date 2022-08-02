@@ -7,6 +7,12 @@ defmodule FindCepWeb.SearchControllerTest do
   alias FindCep.Schema.Address
 
   describe "search/2" do
+    test "does not allow consultation with unauthenticated user ", %{conn: conn} do
+      conn = get(conn, "/search/78360000")
+
+      assert conn.status == 401
+    end
+
     test "search for an address by zip code", %{conn: conn} do
       conn =
         conn
@@ -33,6 +39,12 @@ defmodule FindCepWeb.SearchControllerTest do
   end
 
   describe "report_csv/2" do
+    test "does not allow consultation with unauthenticated user ", %{conn: conn} do
+      conn = get(conn, "/report_csv")
+
+      assert conn.status == 401
+    end
+
     test "returns status 204 when there is no data to download", %{conn: conn} do
       conn =
         conn
