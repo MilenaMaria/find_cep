@@ -1,12 +1,17 @@
 defmodule FindCepWeb.SearchControllerTest do
   use FindCepWeb.ConnCase
 
+  import Plug.BasicAuth
+
   alias FindCep.Helpers
   alias FindCep.Schema.Address
 
   describe "search/2" do
     test "search for an address by zip code", %{conn: conn} do
-      conn = get(conn, "/search/78360000")
+      conn =
+        conn
+        |> put_req_header("authorization", encode_basic_auth("hello", "secret"))
+        |> get("/search/78360000")
 
       address = %Address{
         bairro: nil,
@@ -29,7 +34,10 @@ defmodule FindCepWeb.SearchControllerTest do
 
   describe "report_csv/2" do
     test "returns status 204 when there is no data to download", %{conn: conn} do
-      conn = get(conn, "/report_csv")
+      conn =
+        conn
+        |> put_req_header("authorization", encode_basic_auth("hello", "secret"))
+        |> get("/report_csv")
 
       assert conn.status == 204
     end
@@ -37,7 +45,10 @@ defmodule FindCepWeb.SearchControllerTest do
     test "requests to download address list", %{conn: conn} do
       Helpers.insert_address()
 
-      conn = get(conn, "/report_csv")
+      conn =
+        conn
+        |> put_req_header("authorization", encode_basic_auth("hello", "secret"))
+        |> get("/report_csv")
 
       resp_headers = conn.resp_headers
 
@@ -45,9 +56,9 @@ defmodule FindCepWeb.SearchControllerTest do
                _,
                _,
                _,
-              _,
-              _,
-              _,
+               _,
+               _,
+               _,
                _,
                _,
                {"content-type", "text/csv"},

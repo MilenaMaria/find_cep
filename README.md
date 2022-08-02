@@ -53,6 +53,11 @@ mix test
 
 ## Rotas disponiveis
 
+Para utilizar a API é necessário fazer login
+
+senha: hello
+pass: secret
+
 <http://localhost:4000/search/:cep>
 
 `cep`: Número do cep

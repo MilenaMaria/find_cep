@@ -1,5 +1,6 @@
 defmodule FindCepWeb.Router do
   use FindCepWeb, :router
+  import Plug.BasicAuth
 
   pipeline :browser do
     plug :accepts, ["json", "json-api"]
@@ -8,6 +9,7 @@ defmodule FindCepWeb.Router do
     plug :put_root_layout, {FindCepWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :basic_auth, Application.compile_env(:find_cep, :basic_auth)
   end
 
   pipeline :api do

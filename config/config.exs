@@ -10,6 +10,8 @@ import Config
 config :find_cep,
   ecto_repos: [FindCep.Repo]
 
+config :find_cep, :basic_auth, username: "hello", password: "secret"
+
 # Configures the endpoint
 config :find_cep, FindCepWeb.Endpoint,
   url: [host: "localhost"],
